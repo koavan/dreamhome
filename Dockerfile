@@ -5,20 +5,23 @@ FROM python:3.6-slim-stretch
 ENV PYTHONUNBUFFERED 1
 
 # create root directory for our project in the container
-RUN mkdir /dreamhome
+RUN mkdir /src
 
-# Set the working directory to /dreamhome
-WORKDIR /dreamhome
+# Set the working directory to /src
+WORKDIR /src
 
-# Copy the current directory contents into the container at /music_service
-ADD . /dreamhome/
+# Install necessary packages
+RUN apt-get update && apt-get install -y libpq-dev \
+build-essential \
+python-dev \
+python3-psycopg2 \
+&& rm -rf /var/lib/apt/lists/*
 
-RUN apt update
-
-RUN apt install libpq-dev build-essential python-dev python3-psycopg2 -y
+# Copy the current directory contents into the container at /tmp
+ADD requirements.txt /tmp
 
 # Install any needed packages specified in requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /tmp/requirements.txt
 
 EXPOSE 8000
 

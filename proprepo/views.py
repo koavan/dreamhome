@@ -18,4 +18,3 @@ class PropertyViewset(viewsets.ModelViewSet):
 class SiteImageViewset(viewsets.ModelViewSet):
     queryset = SiteImage.objects.all()
     serializer_class = SiteImageSerializer
-
