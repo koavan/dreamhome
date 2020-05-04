@@ -4,7 +4,7 @@ FROM python:3.6-slim-stretch
 # to the terminal with out buffering it first
 ENV PYTHONUNBUFFERED 1
 
-# create root directory for our project in the container
+# create root directory for the project inside the container
 RUN mkdir /src
 
 # Set the working directory to /src
