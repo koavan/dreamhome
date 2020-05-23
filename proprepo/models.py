@@ -28,8 +28,8 @@ class SiteImage(models.Model):
         
 class Site(models.Model):
     SITE_STATUS = [
-        ('A', 'AVAILABLE'),
-        ('NA', 'NOT-AVAILABLE')
+        ('AVAILABLE', 'AVAILABLE'),
+        ('NOT-AVAILABLE', 'NOT-AVAILABLE')
     ]
     APPROVAL_BODIES = [
         ('PANCHAYAT', 'PANCHAYAT'),
@@ -48,10 +48,10 @@ class Site(models.Model):
     properties_available = models.IntegerField()
     land_rate_sqft = models.BigIntegerField()
     land_rate_cent = models.BigIntegerField()
-    status = models.CharField(max_length=4, choices=SITE_STATUS)
+    status = models.CharField(max_length=30, choices=SITE_STATUS)
     approved = models.BooleanField(default=False)
     approval_body = models.CharField(max_length=20, choices=APPROVAL_BODIES, blank=True, null=True)
-    layout_image = models.ManyToManyField(SiteImage)
+    # layout_image = models.ManyToManyField(SiteImage)
 
     class Meta:
         verbose_name_plural = 'Sites'
@@ -61,14 +61,15 @@ class Site(models.Model):
 
 class Property(models.Model):
     PROPERTY_TYPES = [
-        ('LA', 'LAND-APPROVED'),
-        ('LU', 'LAND-UNAPPROVED'),
-        ('BL', 'BUILDING')
+        ('LAND-APPROVED', 'LAND-APPROVED'),
+        ('LAND-UNAPPROVED', 'LAND-UNAPPROVED'),
+        ('BUILDING', 'BUILDING')
     ]
     PROPERTY_STATUS = [
-        ('A', 'AVAILABLE'),
-        ('NA', 'NOT-FOR-SALE'),
-        ('SO', 'SOLD')
+        ('AVAILABLE', 'AVAILABLE'),
+        ('NOT-AVAILABLE', 'NOT-AVAILABLE'),
+        ('NOT-FOR-SALE', 'NOT-FOR-SALE'),
+        ('SOLD', 'SOLD')
     ]
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=255, blank=True, null=True)
@@ -76,11 +77,11 @@ class Property(models.Model):
     site_id = models.ForeignKey(Site, on_delete=models.CASCADE)
     area_sqft = models.FloatField()
     area_cents = models.FloatField()
-    facing_direction = models.CharField(max_length=2)
+    facing_direction = models.CharField(max_length=30)
     land_rate_sqft = models.FloatField()
     land_rate_cent = models.FloatField()
-    status = models.CharField(max_length=4, choices=PROPERTY_STATUS)
-    layout_image = models.ImageField()
+    status = models.CharField(max_length=30, choices=PROPERTY_STATUS)
+    # layout_image = models.ImageField()
 
     class Meta:
         verbose_name_plural = 'Properties'

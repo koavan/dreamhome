@@ -18,10 +18,11 @@ services:
         stdin_open: true
     django-server:
         # build: .
-        image: koavan/djangoserver:1.4-debian
+        image: koavan/djangoserver:version-1.0
         container_name: django-server
         volumes:
             - .:/src
+        working_dir: /src
         depends_on:
             - postgres-db
         command: sh -c "sleep 20 && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
