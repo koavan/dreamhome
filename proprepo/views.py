@@ -2,8 +2,10 @@ from rest_framework.response import Response
 from rest_framework import ( generics, mixins)
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Owner, Site, Property, SiteImage
-from .serializers import OwnerSerializer, SiteSerializer, PropertySerializer, SiteImageSerializer
+from .models import Owner, Site, Property, SiteImage, PropertyImage
+from .serializers import ( OwnerSerializer, SiteSerializer, 
+                            PropertySerializer, SiteImageSerializer, 
+                            PropertyImageSerializer, )
 
 # Owner related views
 class OwnerListCreateAPIView(generics.ListCreateAPIView): 
@@ -75,3 +77,17 @@ class PropertyCreateAPIView(generics.CreateAPIView):
 class PropertyDetailAPIView(generics.RetrieveAPIView):
     queryset = Property.objects.all()
     serializer_class = PropertySerializer
+
+# PropertyImage related views
+class PropertyImageCreateAPIView(generics.CreateAPIView):
+    queryset = PropertyImage.objects.all()
+    serializer_class = PropertyImageSerializer
+
+    def perform_create(self, serializer):
+        property_pk = self.kwargs.get('property_pk')
+        property = generics.get_object_or_404(Property, pk=property_pk)
+        serializer.save(property=property)
+
+class PropertyImageDetailAPIView(generics.RetrieveAPIView):
+    queryset = PropertyImage.objects.all()
+    serializer_class = PropertyImageSerializer

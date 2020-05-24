@@ -42,7 +42,6 @@ class Site(models.Model):
     status = models.CharField(max_length=30, choices=SITE_STATUS)
     approved = models.BooleanField(default=False)
     approval_body = models.CharField(max_length=20, choices=APPROVAL_BODIES, blank=True, null=True)
-    # layout_image = models.ManyToManyField(SiteImage)
 
     class Meta:
         verbose_name_plural = 'Sites'
@@ -81,10 +80,18 @@ class Property(models.Model):
     land_rate_sqft = models.FloatField()
     land_rate_cent = models.FloatField()
     status = models.CharField(max_length=30, choices=PROPERTY_STATUS)
-    # layout_image = models.ImageField()
 
     class Meta:
         verbose_name_plural = 'Properties'
 
     def __str__(self):
         return self.name
+
+class PropertyImage(models.Model):
+    image = models.ImageField()
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='images')
+    class Meta:
+        verbose_name_plural = 'PropertyImages'
+
+    def __str__(self):
+        return self.image.name
