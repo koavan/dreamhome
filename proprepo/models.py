@@ -17,15 +17,6 @@ class Owner(models.Model):
     def __str__(self):
         return self.name
 
-class SiteImage(models.Model):
-    image = models.ImageField()
-
-    class Meta:
-        verbose_name_plural = 'SiteImages'
-
-    def __str__(self):
-        return self.image.name
-        
 class Site(models.Model):
     SITE_STATUS = [
         ('AVAILABLE', 'AVAILABLE'),
@@ -58,6 +49,15 @@ class Site(models.Model):
 
     def __str__(self):
         return self.name
+
+class SiteImage(models.Model):
+    image = models.ImageField()
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, related_name='images')
+    class Meta:
+        verbose_name_plural = 'SiteImages'
+
+    def __str__(self):
+        return self.image.name
 
 class Property(models.Model):
     PROPERTY_TYPES = [

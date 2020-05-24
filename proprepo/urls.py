@@ -3,19 +3,23 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from .views import (OwnerListCreateAPIView, OwnerDetailAPIView,
-                    SiteListAPIView, SiteCreateAPIView, SiteDetailView,
-                    SiteImageViewset,)
-
-router = DefaultRouter()
-router.register('',SiteImageViewset)
+                    SiteListAPIView, SiteCreateAPIView, SiteDetailAPIView,
+                    SiteImageCreateAPIView, SiteImageDetailAPIView,
+                    PropertyListAPIView, PropertyCreateAPIView, PropertyDetailAPIView, 
+                    FilteredPropertyListAPIView, )
 
 urlpatterns = [
     path('owners/', OwnerListCreateAPIView.as_view(), name='owners-list'),
     path('owners/<int:pk>/', OwnerDetailAPIView.as_view(), name='owner-detail'),
     path('owners/<int:owner_pk>/site/', SiteCreateAPIView.as_view(), name='add-site'),
     path('sites/', SiteListAPIView.as_view(), name='sites-list'),
-    path('sites/<int:pk>/', SiteDetailView.as_view(), name='site-detail'),
-    path('site-images/', include(router.urls))
+    path('sites/<int:pk>/', SiteDetailAPIView.as_view(), name='site-detail'),
+    path('sites/<int:site_pk>/image/', SiteImageCreateAPIView.as_view(), name='image-create'),
+    path('sites/<int:site_pk>/property/', PropertyCreateAPIView.as_view(), name='property-add'),
+    path('sites/<int:site_pk>/properties/', FilteredPropertyListAPIView.as_view(), name='list-properties'),
+    path('site-images/<int:pk>/', SiteImageDetailAPIView.as_view(), name='site-image-detail'),
+    path('properties/', PropertyListAPIView.as_view(), name='properties-list'),
+    path('property/<int:pk>/', PropertyDetailAPIView.as_view(), name='property-detail'),
 ]
     
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
