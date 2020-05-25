@@ -9,15 +9,6 @@ from .serializers import (  SiteSerializer,
                             PropertyImageSerializer, )
 from profiles.serializers import OwnerSerializer
 
-# Owner related views
-# class OwnerListCreateAPIView(generics.ListCreateAPIView): 
-#     queryset = Owner.objects.all()
-#     serializer_class = OwnerSerializer
-
-# class OwnerDetailAPIView(generics.RetrieveAPIView): 
-#     queryset = Owner.objects.all()
-#     serializer_class = OwnerSerializer
-
 # Site related views
 class SiteListAPIView(generics.ListAPIView):
     queryset = Site.objects.all()
