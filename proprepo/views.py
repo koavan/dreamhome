@@ -2,19 +2,21 @@ from rest_framework.response import Response
 from rest_framework import ( generics, mixins)
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Owner, Site, Property, SiteImage, PropertyImage
-from .serializers import ( OwnerSerializer, SiteSerializer, 
+from .models import Site, Property, SiteImage, PropertyImage
+from profiles.models import Owner
+from .serializers import (  SiteSerializer, 
                             PropertySerializer, SiteImageSerializer, 
                             PropertyImageSerializer, )
+from profiles.serializers import OwnerSerializer
 
 # Owner related views
-class OwnerListCreateAPIView(generics.ListCreateAPIView): 
-    queryset = Owner.objects.all()
-    serializer_class = OwnerSerializer
+# class OwnerListCreateAPIView(generics.ListCreateAPIView): 
+#     queryset = Owner.objects.all()
+#     serializer_class = OwnerSerializer
 
-class OwnerDetailAPIView(generics.RetrieveAPIView): 
-    queryset = Owner.objects.all()
-    serializer_class = OwnerSerializer
+# class OwnerDetailAPIView(generics.RetrieveAPIView): 
+#     queryset = Owner.objects.all()
+#     serializer_class = OwnerSerializer
 
 # Site related views
 class SiteListAPIView(generics.ListAPIView):

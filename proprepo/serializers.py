@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Owner, Site, Property, SiteImage, PropertyImage
 
-class OwnerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Owner
-        fields = '__all__'
+# class OwnerSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Owner
+#         fields = '__all__'
 
 class SiteImageSerializer(serializers.ModelSerializer):
     site = serializers.StringRelatedField(read_only=True)
