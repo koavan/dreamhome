@@ -8,9 +8,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('proprepo.urls')),
     path('profiles/', include('profiles.urls')),
-    path('auth/token/', TokenObtainPairView.as_view()),
-    path('auth/token/refresh/', TokenRefreshView.as_view())
+    # path('auth/token/', TokenObtainPairView.as_view()),
+    # path('auth/token/refresh/', TokenRefreshView.as_view())
     # path('api_auth/', include('rest_framework.urls')),
+    path('rest_auth/', include('rest_auth.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
