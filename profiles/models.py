@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Owner(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='owners')
     company_name = models.CharField(max_length=100, unique=True, blank=False)
     address = models.TextField(max_length=255)
     district = models.CharField(max_length=50)
@@ -69,4 +69,4 @@ class Owner(models.Model):
         verbose_name_plural = 'Owners'
 
     def __str__(self):
-        return self.user.username
+        return self.user.name

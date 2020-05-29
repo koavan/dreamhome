@@ -2,6 +2,9 @@ from rest_framework import ( generics, mixins)
 from .models import Owner
 from .serializers import ( OwnerSerializer, UserSerializer, )
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ( ObjectDoesNotExist, ValidationError, )
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.generics import get_object_or_404
 
 User = get_user_model()
@@ -20,15 +23,15 @@ class OwnerCreateAPIView(generics.CreateAPIView):
     serializer_class = OwnerSerializer
 
     def perform_create(self, serializer):
-        user_pk = self.kwargs.get('user_pk')
-        user = get_object_or_404(User, pk=user_pk)
-        serializer.save(user=user)
+        print(self.request.user)
+        print(self.request.data)
+        user = get_object_or_404(User, email=self.request.user)
+        print(user.email)
 
-# User related views
-class UserCreateAPIView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    # permission_classes = ['rest_framework.permissions.AllowAny']
-
-    def perform_authentication(self, request):
-        return super().perform_authentication(request)
+        try:
+            temp = user.owners
+            print(temp)
+            raise ValidationError("This user is already associated with a owner!")
+        except ObjectDoesNotExist:
+            print("No owners existing for this user")
+            serializer.save(user=user)
