@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Owner, User
+from .models import Owner, User, Buyer
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 class UserAdmin(BaseUserAdmin):
@@ -32,3 +32,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Owner)
+admin.site.register(Buyer)

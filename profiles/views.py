@@ -1,7 +1,7 @@
 from rest_framework import ( generics, mixins)
-from .models import Owner
-from .serializers import ( OwnerSerializer, UserSerializer, )
-from .permissions import IsNoOwnerCreated
+from .models import Owner, Buyer
+from .serializers import ( OwnerSerializer, UserSerializer, BuyerSerializer, )
+from .permissions import IsNoOwnerCreated, IsNoBuyerCreated
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ( ObjectDoesNotExist, ValidationError, )
@@ -28,14 +28,29 @@ class OwnerCreateAPIView(generics.CreateAPIView):
     permission_classes = [ IsAuthenticated, IsNoOwnerCreated ]
 
     def perform_create(self, serializer):
-        # print(self.request.user)
-        # print(self.request.data)
         user = get_object_or_404(User, email=self.request.user)
         print(user.email)
 
         try:
-            temp = user.owners
-            print(temp)
+            owners = user.owners
+            print(owners)
+            raise ValidationError("This user is already associated with a owner!")
+        except ObjectDoesNotExist:
+            print("No owners existing for this user")
+            serializer.save(user=user)
+
+class BuyerCreateAPIView(generics.CreateAPIView):
+    queryset = Buyer.objects.all()
+    serializer_class = BuyerSerializer
+    permission_classes = [ IsAuthenticated, IsNoBuyerCreated ]
+
+    def perform_create(self, serializer):
+        user = get_object_or_404(User, email=self.request.user)
+        print(user.email)
+
+        try:
+            buyers = user.owners
+            print(buyers)
             raise ValidationError("This user is already associated with a owner!")
         except ObjectDoesNotExist:
             print("No owners existing for this user")
