@@ -1,11 +1,15 @@
 from rest_framework import ( generics, mixins)
 from .models import Owner
 from .serializers import ( OwnerSerializer, UserSerializer, )
+from .permissions import IsNoOwnerCreated
+
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ( ObjectDoesNotExist, ValidationError, )
-from rest_framework.response import Response
+
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 User = get_user_model()
 
@@ -21,10 +25,11 @@ class OwnerDetailAPIView(generics.RetrieveAPIView):
 class OwnerCreateAPIView(generics.CreateAPIView):
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
+    permission_classes = [ IsAuthenticated, IsNoOwnerCreated ]
 
     def perform_create(self, serializer):
-        print(self.request.user)
-        print(self.request.data)
+        # print(self.request.user)
+        # print(self.request.data)
         user = get_object_or_404(User, email=self.request.user)
         print(user.email)
 
