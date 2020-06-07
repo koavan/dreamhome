@@ -77,8 +77,7 @@ class Buyer(models.Model):
 	district = models.CharField(max_length=50)
 	state = models.CharField(max_length=50)
 	contact_number = models.CharField(max_length=10, unique=True, blank=False)
-	contact_number = models.CharField(max_length=10, unique=True, blank=True)
-	avatar = models.ImageField()
+	avatar = models.ImageField(blank=True)
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateField(auto_now=True)
 

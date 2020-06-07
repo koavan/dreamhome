@@ -15,7 +15,8 @@ class BuyerSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Buyer
-        fields = '__all__'
+        exclude = ('created_at', 'updated_at', )
+        # fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

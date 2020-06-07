@@ -81,7 +81,6 @@ class OwnerCreateAPIViewTest(APITestCase):
     def test_ownercreateview_un_authenticated(self):
         self.client.force_authenticate(user=None)
         data = {
-            "user": self.user,
             "company_name": "test-company2",
             "address": "test-address2",
             "district": "test-district2",
@@ -91,7 +90,45 @@ class OwnerCreateAPIViewTest(APITestCase):
             "support_email_id": "test2@test.com",
             "website": "https://test.com",
             "pan_number": "ABCD1234EF",
-            "avatar": "null"
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(json.loads(response.content), {
+                'detail': 'Authentication credentials were not provided.'
+                }
+            )
+
+class BuyerCreateAPIViewTest(APITestCase):
+    def setUp(self):
+        self.url = reverse('create-buyer')
+        self.user = User.objects.create(email='test-buyer@test.com', name='test-buyer')
+        self.token = Token.objects.create(user=self.user)
+        self.api_authentication()
+
+    def api_authentication(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
+
+    def test_buyercreateview_authenticated(self):
+        data = {
+            "address": "test-address2",
+            "district": "test-district2",
+            "state": "test-state2",
+            "gstin": "test-gstin2",
+            "contact_number": "9597200186",
+            "avatar": ""
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_buyercreateview_un_authenticated(self):
+        self.client.force_authenticate(user=None)
+        data = {
+            "address": "test-address2",
+            "district": "test-district2",
+            "state": "test-state2",
+            "gstin": "test-gstin2",
+            "contact_number": "9597200186",
+            "avatar": ""
         }
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
