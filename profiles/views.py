@@ -36,7 +36,7 @@ class OwnerCreateAPIView(generics.CreateAPIView):
             print(owners)
             raise ValidationError("This user is already associated with a owner!")
         except ObjectDoesNotExist:
-            print("No owners existing for this user")
+            # print("No owners existing for this user")
             serializer.save(user=user)
 
 class BuyerCreateAPIView(generics.CreateAPIView):

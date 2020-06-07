@@ -61,7 +61,7 @@ class Owner(models.Model):
     support_email_id = models.EmailField()
     website = models.URLField()
     pan_number = models.CharField(max_length=50)
-    avatar = models.ImageField()
+    avatar = models.ImageField(blank=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 

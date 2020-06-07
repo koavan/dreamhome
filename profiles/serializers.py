@@ -8,7 +8,8 @@ class OwnerSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Owner
-        fields = '__all__'
+        exclude = ('created_at', 'updated_at', )
+        # fields = '__all__'
 
 class BuyerSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
