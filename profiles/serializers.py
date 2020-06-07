@@ -1,18 +1,27 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from .models import Owner
+from .models import Owner, Buyer
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class OwnerSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Owner
-        fields = '__all__'
+        exclude = ('created_at', 'updated_at', )
+        # fields = '__all__'
+
+class BuyerSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = Buyer
+        exclude = ('created_at', 'updated_at', )
+        # fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', )
-        # fields = '__all__'
+        fields = ('id', 'name', 'email', 'password', )
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

@@ -1,10 +1,12 @@
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import ( OwnerListCreateAPIView, OwnerDetailAPIView, UserCreateAPIView, )
+from .views import ( OwnerListAPIView, OwnerDetailAPIView, OwnerCreateAPIView,
+                     BuyerCreateAPIView, )
 
 urlpatterns = [
-    path('owners/', OwnerListCreateAPIView.as_view(), name='owners-list'),
+    path('owners/', OwnerListAPIView.as_view(), name='owners-list'),
     path('owners/<int:pk>/', OwnerDetailAPIView.as_view(), name='owner-detail'),
-    path('register/', UserCreateAPIView.as_view(), name='create-user'),
+    path('owners/create/', OwnerCreateAPIView.as_view(), name='create-owner'),
+    path('buyers/create/', BuyerCreateAPIView.as_view(), name='create-buyer'),
 ]
