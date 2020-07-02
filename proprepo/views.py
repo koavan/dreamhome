@@ -49,7 +49,7 @@ class SiteImageCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         site_pk = self.kwargs.get('site_pk')
         site = generics.get_object_or_404(Site, pk=site_pk)
-        # serializer.save(site=site)
+        serializer.save(site=site)
 
 class SiteImageDetailAPIView(generics.RetrieveAPIView):
     queryset = SiteImage.objects.all()
