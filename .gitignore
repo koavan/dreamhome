@@ -1,4 +1,4 @@
-**/migrations/
-**/__pycache__/*
-**/media/
 *.pyc
+**/migrations/**
+**/__pycache__/**
+**/media/**
