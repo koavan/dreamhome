@@ -45,3 +45,8 @@ class SiteCreateAPIViewTest(APITestCase):
     def test_site_creation_authenticated(self):
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_site_creation_unauthenticated(self):
+        self.client.force_authenticate(user=None)
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
