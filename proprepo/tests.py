@@ -11,7 +11,7 @@ User = get_user_model()
 
 class SiteCreateAPIViewTest(APITestCase):
 
-    url = reverse('add-site', kwargs={"owner_pk": 1})
+    url = reverse('add-site')
 
     def setUp(self):
         self.user = User.objects.create(email='test@test.com', name='test')
