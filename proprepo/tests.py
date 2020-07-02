@@ -50,3 +50,7 @@ class SiteCreateAPIViewTest(APITestCase):
         self.client.force_authenticate(user=None)
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(json.loads(response.content), {
+                'detail': 'Authentication credentials were not provided.'
+                }
+            )
