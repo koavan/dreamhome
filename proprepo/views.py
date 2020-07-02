@@ -32,7 +32,7 @@ class SiteCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         user = generics.get_object_or_404(User, email=self.request.user)
         owner = user.owners
-        print(owner.company_name)
+        # print(owner.company_name)
         # owner = generics.get_object_or_404(Owner, email=self.request.user)
         serializer.save(owner_id = owner)
 
