@@ -9,7 +9,8 @@ from .views import ( SiteListAPIView, SiteCreateAPIView, SiteDetailAPIView,
 from profiles.views import ( OwnerListAPIView, OwnerDetailAPIView, )
 
 urlpatterns = [
-    path('owners/<int:owner_pk>/site/', SiteCreateAPIView.as_view(), name='add-site'),
+    # path('owners/<int:owner_pk>/site/', SiteCreateAPIView.as_view(), name='add-site'),
+    path('owners/site/', SiteCreateAPIView.as_view(), name='add-site'),
 
     path('sites/', SiteListAPIView.as_view(), name='sites-list'),
     path('sites/<int:pk>/', SiteDetailAPIView.as_view(), name='site-detail'),

@@ -25,7 +25,7 @@ class OwnerDetailAPIView(generics.RetrieveAPIView):
 class OwnerCreateAPIView(generics.CreateAPIView):
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
-    permission_classes = [ IsAuthenticated, IsNoOwnerCreated ]
+    permission_classes = [ IsAuthenticated, IsNoOwnerCreated, IsNoBuyerCreated ]
 
     def perform_create(self, serializer):
         user = get_object_or_404(User, email=self.request.user)
@@ -42,7 +42,7 @@ class OwnerCreateAPIView(generics.CreateAPIView):
 class BuyerCreateAPIView(generics.CreateAPIView):
     queryset = Buyer.objects.all()
     serializer_class = BuyerSerializer
-    permission_classes = [ IsAuthenticated, IsNoBuyerCreated ]
+    permission_classes = [ IsAuthenticated, IsNoBuyerCreated, IsNoOwnerCreated ]
 
     def perform_create(self, serializer):
         user = get_object_or_404(User, email=self.request.user)
