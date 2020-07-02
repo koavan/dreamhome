@@ -20,6 +20,21 @@ class IsNoOwnerCreated(permissions.BasePermission):
             # print("No owners existing for this user")
             return True
 
+class IsOwner(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        user = get_object_or_404(User, email=request.user)
+        print("inside IsOwner")
+        try:
+            temp = user.owners
+            print(temp)
+            if temp:
+                return True
+            return False
+        except ObjectDoesNotExist:
+            print("No owners existing for this user")
+            return False
+
 class IsNoBuyerCreated(permissions.BasePermission):
 
     def has_permission(self, request, view):
