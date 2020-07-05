@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 import json
 from profiles.models import Owner, Buyer
+from proprepo.models import Site
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
@@ -94,3 +95,58 @@ class SiteCreateAPIViewTest(APITestCase):
                     "detail": "You do not have permission to perform this action."
                 }
             )
+
+class SiteDetailAPIViewTest(APITestCase):
+    def setUp(self):
+        self.user1 = User.objects.create(email='test@test.com', name='test')
+        self.owner = Owner.objects.create(user=self.user1, company_name='test-company', address='test-address', 
+            district='test-district', state='test-state',
+            gstin='test-gstin', contact_number='9876543210',
+            support_email_id='test@test.com', website='https://test.com',
+            pan_number='ABCD1234EF', avatar=None)
+        self.site = Site.objects.create(
+            name = "test-site",
+            description = "test description",
+            owner_id = self.owner,
+            located_at = "test locality",
+            latitude = 11.1111,
+            longitude = 12.1212,
+            area_sqft = 100000,
+            area_cents = 229,
+            total_properties = 100,
+            properties_occupied = 50,
+            properties_available = 50,
+            land_rate_sqft = 1300,
+            land_rate_cent = 566800,
+            status = 'AVAILABLE',
+            approved = True,
+            approval_body = "DTCP"
+        )
+        self.data = {
+            "id" : self.site.id,
+            "name" : "test-site",
+            "description" : "test description",
+            "owner_id" : self.owner.company_name,
+            "located_at" : "test locality",
+            "latitude" : 11.1111,
+            "longitude" : 12.1212,
+            "area_sqft" : 100000.0,
+            "area_cents" : 229.0,
+            "total_properties" : 100,
+            "properties_occupied" : 50,
+            "properties_available" : 50,
+            "land_rate_sqft" : 1300,
+            "land_rate_cent" : 566800,
+            "status" : 'AVAILABLE',
+            "approved" : True,
+            "approval_body" : "DTCP",
+            "images" : []
+        }
+        
+    def test_site_detail_view(self):
+        response = self.client.get(reverse('site-detail', kwargs={ 'pk' : self.site.id }))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            json.loads(response.content),
+            self.data
+        )
