@@ -14,7 +14,7 @@ from rest_framework.response import Response
 User = get_user_model()
 
 # Owner related views
-class OwnerListAPIView(generics.ListCreateAPIView): 
+class OwnerListAPIView(generics.ListAPIView): 
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
 
