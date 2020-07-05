@@ -46,6 +46,27 @@ class SiteCreateAPIViewTest(APITestCase):
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+    def test_site_creation_duplicate(self):
+        data2 = {
+            "name" : "test-site-2",
+            "description" : "test description two",
+            "located_at" : "test locality two",
+            "latitude" : 11.1111,
+            "longitude" : 12.1212,
+            "area_sqft" : 100000,
+            "area_cents" : 229,
+            "total_properties" : 100,
+            "properties_occupied" : 50,
+            "properties_available" : 50,
+            "land_rate_sqft" : 1300,
+            "land_rate_cent" : 566800,
+            "status" : 'AVAILABLE',
+            "approved" : True,
+            "approval_body" : "DTCP"
+        }
+        response = self.client.post(self.url, data2)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
     def test_site_creation_unauthenticated(self):
         self.client.force_authenticate(user=None)
         response = self.client.post(self.url, self.data)
