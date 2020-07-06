@@ -150,3 +150,101 @@ class SiteDetailAPIViewTest(APITestCase):
             json.loads(response.content),
             self.data
         )
+
+class SiteListAPIViewTest(APITestCase):
+    def setUp(self):
+        self.user1 = User.objects.create(email='test@test.com', name='test')
+        self.owner = Owner.objects.create(user=self.user1, company_name='test-company', address='test-address', 
+            district='test-district', state='test-state',
+            gstin='test-gstin', contact_number='9876543210',
+            support_email_id='test@test.com', website='https://test.com',
+            pan_number='ABCD1234EF', avatar=None)
+        self.site1 = Site.objects.create(
+            name = "test-site-1",
+            description = "test description one",
+            owner_id = self.owner,
+            located_at = "test locality one",
+            latitude = 11.1111,
+            longitude = 12.1212,
+            area_sqft = 100000,
+            area_cents = 229,
+            total_properties = 100,
+            properties_occupied = 50,
+            properties_available = 50,
+            land_rate_sqft = 1300,
+            land_rate_cent = 566800,
+            status = 'AVAILABLE',
+            approved = True,
+            approval_body = "DTCP"
+        )
+
+        self.site2 = Site.objects.create(
+            name = "test-site-2",
+            description = "test description two",
+            owner_id = self.owner,
+            located_at = "test locality two",
+            latitude = 11.1111,
+            longitude = 12.1212,
+            area_sqft = 100000,
+            area_cents = 229,
+            total_properties = 100,
+            properties_occupied = 50,
+            properties_available = 50,
+            land_rate_sqft = 1300,
+            land_rate_cent = 566800,
+            status = 'AVAILABLE',
+            approved = True,
+            approval_body = "DTCP"
+        )
+
+        self.data = [
+            {
+                "id" : self.site1.id,
+                "name" : "test-site-1",
+                "description" : "test description one",
+                "owner_id" : self.owner.company_name,
+                "located_at" : "test locality one",
+                "latitude" : 11.1111,
+                "longitude" : 12.1212,
+                "area_sqft" : 100000.0,
+                "area_cents" : 229.0,
+                "total_properties" : 100,
+                "properties_occupied" : 50,
+                "properties_available" : 50,
+                "land_rate_sqft" : 1300,
+                "land_rate_cent" : 566800,
+                "status" : 'AVAILABLE',
+                "approved" : True,
+                "approval_body" : "DTCP",
+                "images" : []
+            },
+            {
+                "id" : self.site2.id,
+                "name" : "test-site-2",
+                "description" : "test description two",
+                "owner_id" : self.owner.company_name,
+                "located_at" : "test locality two",
+                "latitude" : 11.1111,
+                "longitude" : 12.1212,
+                "area_sqft" : 100000.0,
+                "area_cents" : 229.0,
+                "total_properties" : 100,
+                "properties_occupied" : 50,
+                "properties_available" : 50,
+                "land_rate_sqft" : 1300,
+                "land_rate_cent" : 566800,
+                "status" : 'AVAILABLE',
+                "approved" : True,
+                "approval_body" : "DTCP",
+                "images" : []
+            }
+        ]
+
+    def test_sites_list_view(self):
+        response = self.client.get(reverse('sites-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+                json.loads(response.content),
+                self.data
+            )
+            
