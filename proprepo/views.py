@@ -71,7 +71,7 @@ class FilteredPropertyListAPIView(generics.ListAPIView):
 class PropertyCreateAPIView(generics.CreateAPIView):
     queryset = Property.objects.all()
     serializer_class = PropertySerializer
-    permission_classes = [ IsAuthenticated, IsOwnerOfSite ]
+    permission_classes = [ IsAuthenticated, IsOwner, IsOwnerOfSite ]
 
     def perform_create(self, serializer):
         site_pk = self.kwargs.get('site_pk')
