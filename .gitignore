@@ -1,3 +1,6 @@
 **/media/**
 **/__pycache__/*
 fixture.py
+__pycache__/
+*.py[cod]
+*$py.class
