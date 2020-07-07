@@ -244,11 +244,13 @@ class PropertyListAPIViewTest(APITestCase):
     url = reverse('properties-list')
     def setUp(self):
         self.user1 = User.objects.create(email='test@test.com', name='test')
+        
         self.owner1 = Owner.objects.create(user=self.user1, company_name='test-company', address='test-address', 
             district='test-district', state='test-state',
             gstin='test-gstin', contact_number='9876543210',
             support_email_id='test@test.com', website='https://test.com',
             pan_number='ABCD1234EF', avatar=None)
+        
         self.site1 = Site.objects.create(
             name = "test-site",
             description = "test description",
