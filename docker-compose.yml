@@ -19,7 +19,7 @@ services:
         tty: true
         stdin_open: true
     django-server:
-        image: koavan/djangoserver:version-1.2
+        image: koavan/djangoserver:latest
         container_name: django-server
         volumes:
             - .:/src
