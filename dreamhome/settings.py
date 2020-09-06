@@ -163,11 +163,21 @@ AUTH_USER_MODEL = 'profiles.User'
 
 SITE_ID = 1
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'profiles.serializers.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'profiles.serializers.UserSerializer',
+}
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'profiles.backends.CustomAuthBackend',
+]
+
+ACCOUNT_AUTHENTICATION_METHOD = 'both'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'name'
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGOUT_ON_GET = True

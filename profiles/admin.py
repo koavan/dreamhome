@@ -18,7 +18,7 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 'classes': ('wide',),
-                'fields': ('phone', 'password1', 'password2')
+                'fields': ('phone', 'email', 'password1', 'password2')
             }
         ),
     )
@@ -26,7 +26,7 @@ class UserAdmin(BaseUserAdmin):
     list_display = ( 'name', 'phone', 'email', 'is_staff', )
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email', 'phone', 'name' )
-    ordering = ('email',)
+    ordering = ('id',)
     filter_horizontal = ('groups', 'user_permissions',)
 
 
