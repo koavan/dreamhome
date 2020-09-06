@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    'phone_field',
 ]
 
 MIDDLEWARE = [
@@ -163,6 +165,7 @@ SITE_ID = 1
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'name'
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True

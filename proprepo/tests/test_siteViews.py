@@ -31,14 +31,14 @@ class SiteCreateAPIViewTest(APITestCase):
     }
 
     def setUp(self):
-        self.user1 = User.objects.create(email='test@test.com', name='test')
+        self.user1 = User.objects.create(email='test@test.com', name='test', phone='11111111')
         self.owner = Owner.objects.create(user=self.user1, company_name='test-company', address='test-address', 
             district='test-district', state='test-state',
             gstin='test-gstin', contact_number='9876543210',
             support_email_id='test@test.com', website='https://test.com',
             pan_number='ABCD1234EF', avatar=None)
 
-        self.user2 = User.objects.create(email='test2@test.com', name='test2')
+        self.user2 = User.objects.create(email='test2@test.com', name='test2', phone='22222222')
         self.buyer = Buyer.objects.create(user=self.user2,
             address='test-address-2', 
             district='test-district-2', state='test-state-2',
@@ -98,7 +98,7 @@ class SiteCreateAPIViewTest(APITestCase):
 
 class SiteDetailAPIViewTest(APITestCase):
     def setUp(self):
-        self.user1 = User.objects.create(email='test@test.com', name='test')
+        self.user1 = User.objects.create(email='test@test.com', name='test', phone='11111111')
         self.owner = Owner.objects.create(user=self.user1, company_name='test-company', address='test-address', 
             district='test-district', state='test-state',
             gstin='test-gstin', contact_number='9876543210',
@@ -153,7 +153,7 @@ class SiteDetailAPIViewTest(APITestCase):
 
 class SiteListAPIViewTest(APITestCase):
     def setUp(self):
-        self.user1 = User.objects.create(email='test@test.com', name='test')
+        self.user1 = User.objects.create(email='test@test.com', name='test', phone='11111111')
         self.owner = Owner.objects.create(user=self.user1, company_name='test-company', address='test-address', 
             district='test-district', state='test-state',
             gstin='test-gstin', contact_number='9876543210',
