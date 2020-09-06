@@ -168,7 +168,7 @@ SITE_ID = 1
 REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'profiles.serializers.LoginSerializer',
     'USER_DETAILS_SERIALIZER': 'profiles.serializers.UserSerializer',
-    'REGISTER_SERIALIZER': 'profiles.serializers.RegisterSerializer',
+    # 'REGISTER_SERIALIZER': 'profiles.serializers.RegisterSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {

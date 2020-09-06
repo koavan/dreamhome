@@ -8,22 +8,26 @@ class CustomAuthBackend(ModelBackend):
 
     def authenticate(self, request, **kwargs):
         # user_phone = kwargs['phone']
-        user_phone = kwargs.get('phone', None)
-        email = kwargs.get('email', None)
+        user_phone = kwargs.get('phone', '')
+        email = kwargs.get('email', '')
         password = kwargs['password']
         
-        print(user_phone)
-        print(email)
-        print(password)
+        user = None
+
+        # print(user_phone)
+        # print(email)
+        # print(password)
         try:
             if user_phone:
-                print('Logging in with phone')
+                # print('Logging in with phone')
                 user = User.objects.get(phone=user_phone)
-            elif email:
-                print('Logging in with email')
+                # print(user)
+            else:
+                # print('Logging in with email')
                 user = User.objects.get(email=email)
-                print(user)
+                # print(user)
             if user.check_password(password) is True:
+                # print(user)
                 return user
         except User.DoesNotExist:
             pass

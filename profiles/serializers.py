@@ -4,7 +4,7 @@ from .models import Owner, Buyer
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from phone_field import PhoneField
+from phonenumber_field.phonenumber import PhoneNumber
 from phonenumber_field.serializerfields import PhoneNumberField
 
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
@@ -49,7 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
     # username = serializers.CharField(required=False, allow_blank=True)
-    phone = PhoneNumberField(required=False, allow_blank=True, read_only=True)
+    phone = PhoneNumberField(required=False, allow_blank=True )
     # phone = serializers.CharField(required=False, allow_blank=True)
     email = serializers.EmailField(required=False, allow_blank=True)
     password = serializers.CharField(style={'input_type': 'password'})
@@ -94,6 +94,8 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         phone = attrs.get('phone')
+        phone = str(phone)
+        # print(str(phone))
         email = attrs.get('email')
         password = attrs.get('password')
 
@@ -109,12 +111,13 @@ class LoginSerializer(serializers.Serializer):
             # Authentication through username
             # elif app_settings.AUTHENTICATION_METHOD == app_settings.AuthenticationMethod.USERNAME:
             elif app_settings.AUTHENTICATION_METHOD == 'phone':
-                print(app_settings.AUTHENTICATION_METHOD)
+                # print(app_settings.AUTHENTICATION_METHOD)
                 user = self._validate_phone(phone, password)
 
             # Authentication through either username or email
             else:
                 user = self._validate_phone_email(phone, email, password)
+                # print(user)
 
         else:
             # Authentication without using allauth
@@ -183,7 +186,7 @@ class RegisterSerializer(serializers.Serializer):
         pass
 
     def get_cleaned_data(self):
-        print(self.validated_data.get('phone'))
+        # print(self.validated_data.get('phone'))
         return {
             'name': self.validated_data.get('username', ''),
             'password': self.validated_data.get('password1', ''),
@@ -202,7 +205,9 @@ class RegisterSerializer(serializers.Serializer):
         # setup_user_email(request, user, [])
 
         self.cleaned_data = self.get_cleaned_data()
-        password = self.cleaned_data.pop('password1','')
+        # print(self.cleaned_data)
+        password = self.cleaned_data.pop('password','')
+        # print(password)
         user = User.objects.create(**self.cleaned_data)
         user.set_password(password)
         user.save()
