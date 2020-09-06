@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 from phone_field import PhoneField
+from phonenumber_field.modelfields import PhoneNumberField
 
 class UserManager(BaseUserManager):
 
@@ -36,7 +37,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=254, unique=True)
     name = models.CharField(max_length=254, unique=True)
-    phone = PhoneField(unique=True, blank=False)
+    phone = PhoneNumberField(null=False, blank=True, unique=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -44,7 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'name'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
 
