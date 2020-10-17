@@ -38,7 +38,7 @@ class OwnerDetailAPIViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {
                 "id":self.owner.id,
-                "user":"test@test.com",
+                "user":self.user.name,
                 "company_name":"test-company",
                 "address":"test-address",
                 "district":"test-district",
@@ -131,6 +131,7 @@ class BuyerCreateAPIViewTest(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
     def test_buyercreateview_authenticated(self):
+        # print(self.url)
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

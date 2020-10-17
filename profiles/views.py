@@ -28,12 +28,11 @@ class OwnerCreateAPIView(generics.CreateAPIView):
     permission_classes = [ IsAuthenticated, IsNoOwnerCreated, IsNoBuyerCreated ]
 
     def perform_create(self, serializer):
-        user = get_object_or_404(User, email=self.request.user)
-        # print(user.email)
+        # print(self.request.user)
+        user = get_object_or_404(User, name=self.request.user)
 
         try:
             owners = user.owners
-            # print(owners)
             raise ValidationError("This user is already associated with a owner!")
         except ObjectDoesNotExist:
             # print("No owners existing for this user")
@@ -45,12 +44,11 @@ class BuyerCreateAPIView(generics.CreateAPIView):
     permission_classes = [ IsAuthenticated, IsNoBuyerCreated, IsNoOwnerCreated ]
 
     def perform_create(self, serializer):
-        user = get_object_or_404(User, email=self.request.user)
-        # print(user.email)
+        # print(self.request.user)
+        user = get_object_or_404(User, name=self.request.user)
 
         try:
             buyers = user.owners
-            # print(buyers)
             raise ValidationError("This user is already associated with a owner!")
         except ObjectDoesNotExist:
             # print("No owners existing for this user")

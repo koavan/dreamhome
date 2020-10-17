@@ -9,9 +9,9 @@ User = get_user_model()
 class IsNoOwnerCreated(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        has_owner = False
-        user = get_object_or_404(User, email=request.user)
         # print("inside IsNoOwnerCreated")
+        has_owner = False
+        user = get_object_or_404(User, name=request.user)
         try:
             temp = user.owners
             # print(temp)
@@ -23,8 +23,8 @@ class IsNoOwnerCreated(permissions.BasePermission):
 class IsOwner(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        user = get_object_or_404(User, email=request.user)
         # print("inside IsOwner")
+        user = get_object_or_404(User, name=request.user)
         try:
             temp = user.owners
             # print(temp)
@@ -38,9 +38,9 @@ class IsOwner(permissions.BasePermission):
 class IsNoBuyerCreated(permissions.BasePermission):
 
     def has_permission(self, request, view):
+        # print("inside IsNoBuyerCreated")
         has_owner = False
-        user = get_object_or_404(User, email=request.user)
-        # print("inside IsNoOwnerCreated")
+        user = get_object_or_404(User, name=request.user)
         try:
             temp = user.buyers
             # print(temp)
