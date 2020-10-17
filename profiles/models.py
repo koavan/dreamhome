@@ -1,16 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
+from phone_field import PhoneField
+from phonenumber_field.modelfields import PhoneNumberField
 
 class UserManager(BaseUserManager):
 
-  def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
+  def _create_user(self, email, name, phone, password, is_staff, is_superuser, **extra_fields):
     if not email:
         raise ValueError('Users must have an email address')
     now = timezone.now()
     email = self.normalize_email(email)
     user = self.model(
         email=email,
+        name = name,
+        phone = phone,
         is_staff=is_staff, 
         is_active=True,
         is_superuser=is_superuser, 
@@ -22,17 +26,18 @@ class UserManager(BaseUserManager):
     user.save(using=self._db)
     return user
 
-  def create_user(self, email, password, **extra_fields):
+  def create_user(self, email, name, phone, password, **extra_fields):
     return self._create_user(email, password, False, False, **extra_fields)
 
-  def create_superuser(self, email, password, **extra_fields):
+  def create_superuser(self, email, name, phone, password, **extra_fields):
     user=self._create_user(email, password, True, True, **extra_fields)
     return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=254, unique=True)
-    name = models.CharField(max_length=254, null=True, blank=True)
+    name = models.CharField(max_length=254, unique=True)
+    phone = PhoneNumberField(null=False, blank=True, unique=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -40,7 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'name'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
 

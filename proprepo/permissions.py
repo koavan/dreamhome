@@ -11,7 +11,7 @@ class IsOwnerOfSite(permissions.BasePermission):
     def has_permission(self, request, view):
         if not request.user:
             return False
-        user = get_object_or_404(User, email=request.user)
+        user = get_object_or_404(User, name=request.user)
         site_pk = view.kwargs.get('site_pk', None)
         # print(f'Site ID : { site_pk }')
         site = get_object_or_404(Site, id=site_pk)
