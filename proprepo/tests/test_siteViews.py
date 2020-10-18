@@ -79,7 +79,7 @@ class SiteCreateAPIViewTest(APITestCase):
     def test_site_creation_unauthenticated(self):
         self.client.force_authenticate(user=None)
         response = self.client.post(self.url, self.data)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(json.loads(response.content), {
                 'detail': 'Authentication credentials were not provided.'
                 }

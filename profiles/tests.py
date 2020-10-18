@@ -105,7 +105,7 @@ class OwnerCreateAPIViewTest(APITestCase):
     def test_ownercreateview_un_authenticated(self):
         self.client.force_authenticate(user=None)
         response = self.client.post(self.url, self.data)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(json.loads(response.content), {
                 'detail': 'Authentication credentials were not provided.'
                 }
@@ -156,7 +156,7 @@ class BuyerCreateAPIViewTest(APITestCase):
     def test_buyercreateview_un_authenticated(self):
         self.client.force_authenticate(user=None)
         response = self.client.post(self.url, self.data)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(json.loads(response.content), {
                 'detail': 'Authentication credentials were not provided.'
                 }

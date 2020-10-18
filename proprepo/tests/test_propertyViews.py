@@ -104,7 +104,7 @@ class PropertyCreateAPIViewTest(APITestCase):
             "status" : "AVAILABLE"
         }
         response = self.client.post(reverse('property-add', kwargs={'site_pk' : self.site1.id }), payload)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(json.loads(response.content), {
                 'detail': 'Authentication credentials were not provided.'
                 }
