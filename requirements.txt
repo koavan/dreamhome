@@ -11,3 +11,4 @@ django-cors-headers==3.4.0
 django-phone-field==1.8.1
 django-phonenumber-field==5.0.0
 phonenumbers==8.12.9
+coreapi==2.3.3

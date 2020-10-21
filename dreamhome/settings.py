@@ -190,3 +190,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_LOGOUT_ON_GET = True
 
 REST_SESSION_LOGIN = True
+
+REST_FRAMEWORK = { 
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' 
+}
