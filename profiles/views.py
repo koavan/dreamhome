@@ -61,12 +61,14 @@ class BuyerCreateAPIView(generics.CreateAPIView):
             serializer.save(user=user)
 
 class WhoamiAPIView(APIView):
+    """
+    API endpoint to get details of the current authenticated user.
+    """
 
     def post(self, request, *args, **kwargs):
         """
-        docstring
+        API endpoint to get details of the current authenticated user. Pass the authentication token in the header. It will get the user, buyer/owner details of the user logged in with the auth token passed in the header.
         """
-
         token = request.data.get('token', None)
         
         if token:
