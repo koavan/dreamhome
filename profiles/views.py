@@ -73,7 +73,7 @@ class WhoamiAPIView(APIView):
         
         if token:
             who = {}
-            user = Token.objects.get(key=token).user
+            user = get_object_or_404(Token, key=token).user
             # print(user.email)
             owner = None
             buyer = None
