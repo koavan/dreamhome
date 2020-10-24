@@ -10,7 +10,7 @@ from .serializers import (  SiteSerializer,
                             PropertyImageSerializer, )
 from profiles.serializers import OwnerSerializer
 from profiles.permissions import IsOwner
-from .permissions import IsOwnerOfSite
+from .permissions import IsOwnerOfSite, IsOwnerOfProperty
 from rest_framework.permissions import IsAuthenticated
 
 User = get_user_model()
@@ -86,7 +86,7 @@ class PropertyDetailAPIView(generics.RetrieveAPIView):
 class PropertyImageCreateAPIView(generics.CreateAPIView):
     queryset = PropertyImage.objects.all()
     serializer_class = PropertyImageSerializer
-    permission_classes = [ IsAuthenticated, IsOwnerOfSite ]
+    permission_classes = [ IsAuthenticated, IsOwnerOfProperty ]
 
     def perform_create(self, serializer):
         property_pk = self.kwargs.get('property_pk')
