@@ -65,7 +65,7 @@ class FilteredPropertyListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         site_pk = self.kwargs.get('site_pk')
-        filtered_data = Property.objects.filter(site_id__exact=site_pk)
+        filtered_data = Property.objects.filter(site_id__exact=site_pk).order_by('id')
         return filtered_data
 
 class PropertyCreateAPIView(generics.CreateAPIView):
