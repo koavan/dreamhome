@@ -9,9 +9,8 @@ class SiteImageSerializer(serializers.ModelSerializer):
         model = SiteImage
         fields = '__all__'
 
-class SiteSerializer(serializers.HyperlinkedModelSerializer):
-    owner_id = OwnerSerializer(read_only=True)
-    # owner_id = serializers.StringRelatedField(read_only=True)
+class SiteSerializer(serializers.ModelSerializer):
+    owner_id = serializers.PrimaryKeyRelatedField(read_only=True)
     
     images = SiteImageSerializer(many=True, read_only=True)
     class Meta:
@@ -25,9 +24,16 @@ class PropertyImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PropertySerializer(serializers.ModelSerializer):
-    # site_id = serializers.StringRelatedField(read_only=True)
-    site_id = SiteSerializer(read_only=True)
+    site_id = serializers.PrimaryKeyRelatedField(read_only=True)
     images = PropertyImageSerializer(many=True, read_only=True)
+
+    owner_id = serializers.SerializerMethodField('get_owner_id')
+
+    def get_owner_id(self, prop):
+        owner = prop.site_id.owner_id.id
+        print(owner)
+        return owner
+
     class Meta:
         model = Property
         fields = '__all__'
