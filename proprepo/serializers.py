@@ -4,7 +4,7 @@ from .models import Owner, Site, Property, SiteImage, PropertyImage
 from profiles.serializers import OwnerSerializer
 
 class SiteImageSerializer(serializers.ModelSerializer):
-    site = serializers.StringRelatedField(read_only=True)
+    site = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = SiteImage
         fields = '__all__'
