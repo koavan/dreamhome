@@ -19,7 +19,7 @@ from allauth.utils import ( email_address_exists, get_username_max_length )
 
 User = get_user_model()
 
-class OwnerSerializer(serializers.HyperlinkedModelSerializer):
+class OwnerSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Owner
