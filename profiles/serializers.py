@@ -20,14 +20,14 @@ from allauth.utils import ( email_address_exists, get_username_max_length )
 User = get_user_model()
 
 class OwnerSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
+    # user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Owner
         exclude = ('created_at', 'updated_at', )
         # fields = '__all__'
 
 class BuyerSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
+    # user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Buyer
         exclude = ('created_at', 'updated_at', )
