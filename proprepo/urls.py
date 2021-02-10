@@ -5,7 +5,7 @@ from .views import ( SiteListAPIView, SiteCreateAPIView, SiteDetailAPIView,
                      SiteImageCreateAPIView, SiteImageDetailAPIView,
                      PropertyListAPIView, PropertyCreateAPIView, PropertyDetailAPIView, 
                      FilteredPropertyListAPIView, PropertyImageDetailAPIView, 
-                     PropertyImageCreateAPIView, )
+                     PropertyImageCreateAPIView, SiteLayoutImageDetailView, )
 from profiles.views import ( OwnerListAPIView, OwnerDetailAPIView, )
 
 urlpatterns = [
@@ -17,7 +17,8 @@ urlpatterns = [
     path('sites/<int:site_pk>/image/', SiteImageCreateAPIView.as_view(), name='site-image-create'),
     path('sites/<int:site_pk>/property/', PropertyCreateAPIView.as_view(), name='property-add'),
     path('sites/<int:site_pk>/properties/', FilteredPropertyListAPIView.as_view(), name='list-properties'),
-    
+    path('sites/<int:site_pk>/layout/', SiteLayoutImageDetailView.as_view(), name='site-layout'),
+
     path('site-images/<int:pk>/', SiteImageDetailAPIView.as_view(), name='site-image-detail'),
     
     path('properties/', PropertyListAPIView.as_view(), name='properties-list'),
