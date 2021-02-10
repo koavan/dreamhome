@@ -3,6 +3,7 @@ from rest_framework import ( generics, mixins)
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from .models import Site, Property, SiteImage, PropertyImage
 from profiles.models import Owner
 from .serializers import (  SiteSerializer, 
@@ -96,3 +97,12 @@ class PropertyImageCreateAPIView(generics.CreateAPIView):
 class PropertyImageDetailAPIView(generics.RetrieveAPIView):
     queryset = PropertyImage.objects.all()
     serializer_class = PropertyImageSerializer
+
+class SiteLayoutImageDetailView(generics.ListAPIView):
+    serializer_class = SiteImageSerializer
+
+    def get_queryset(self):
+        site_id = self.kwargs.get('site_pk', None)
+        site = generics.get_object_or_404(Site, pk=site_id)
+        images = SiteImage.objects.filter(site__exact=site_id, is_layout__exact=True)
+        return images
