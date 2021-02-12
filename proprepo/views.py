@@ -1,8 +1,9 @@
+from django.http.response import HttpResponse
 from rest_framework.response import Response
 from rest_framework import ( generics, mixins)
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from .models import Site, Property, SiteImage, PropertyImage
 from profiles.models import Owner
@@ -25,6 +26,24 @@ class SiteDetailAPIView(generics.RetrieveAPIView):
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        site_detail = {}
+        site_id = self.kwargs.get('pk')
+        site = Site.objects.filter(pk=site_id)
+        if site.count() > 0:
+            images = SiteImage.objects.filter(site=site_id).filter(is_layout=False)
+            siteimage_serializer = SiteImageSerializer(images, many=True)
+            site_serializer = self.get_serializer(site[0])
+            site_detail = {
+                    **site_serializer.data, 
+                    'images': siteimage_serializer.data
+                }
+            return Response(site_detail, status=status.HTTP_200_OK)
+        return Response({
+            'success' : False,
+            'message' : 'No such site exists'
+        }, status=status.HTTP_404_NOT_FOUND)
+
 class SiteCreateAPIView(generics.CreateAPIView):
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
@@ -33,8 +52,6 @@ class SiteCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         user = generics.get_object_or_404(User, name=self.request.user)
         owner = user.owners
-        # print(owner.company_name)
-        # owner = generics.get_object_or_404(Owner, email=self.request.user)
         serializer.save(owner_id = owner)
 
 # Site Image related views
@@ -98,11 +115,17 @@ class PropertyImageDetailAPIView(generics.RetrieveAPIView):
     queryset = PropertyImage.objects.all()
     serializer_class = PropertyImageSerializer
 
-class SiteLayoutImageDetailView(generics.ListAPIView):
+class SiteLayoutImageDetailView(generics.RetrieveAPIView):
     serializer_class = SiteImageSerializer
 
-    def get_queryset(self):
+    def retrieve(self, request, *args, **kwargs):
         site_id = self.kwargs.get('site_pk', None)
         site = generics.get_object_or_404(Site, pk=site_id)
         images = SiteImage.objects.filter(site__exact=site_id, is_layout__exact=True)
-        return images
+        if images.count()>0:
+            serialized = self.get_serializer(images[0])
+            return Response(serialized.data)
+        return Response({
+            'success': False,
+            'message': 'No layout image found for this site'
+        }, status=status.HTTP_404_NOT_FOUND)
