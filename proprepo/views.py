@@ -6,12 +6,12 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from .models import Site, Property, SiteImage, PropertyImage
-from profiles.models import Owner
+from profiles.models.models import Owner
 from .serializers import (  SiteSerializer, 
                             PropertySerializer, SiteImageSerializer, 
                             PropertyImageSerializer, )
-from profiles.serializers import OwnerSerializer
-from profiles.permissions import IsOwner
+from profiles.serializers.serializers import OwnerSerializer
+from profiles.permissions.permissions import IsOwner
 from .permissions import IsOwnerOfSite, IsOwnerOfProperty
 from rest_framework.permissions import IsAuthenticated
 

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import ( OwnerListAPIView, OwnerDetailAPIView, OwnerCreateAPIView,
+from profiles.views.views import ( OwnerListAPIView, OwnerDetailAPIView, OwnerCreateAPIView,
                      BuyerCreateAPIView, WhoamiAPIView, BuyerAddressView, )
 
 urlpatterns = [

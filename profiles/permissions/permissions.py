@@ -1,7 +1,7 @@
 from rest_framework import permissions
 from rest_framework.generics import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Buyer
+from profiles.models.models import Buyer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()

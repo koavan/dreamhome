@@ -1,6 +1,6 @@
 from rest_framework import serializers, exceptions
 from rest_framework.exceptions import ValidationError
-from .models import Owner, Buyer
+from profiles.models.models import Owner, Buyer
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings

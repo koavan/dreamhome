@@ -1,5 +1,5 @@
 from django.db import models
-from profiles.models import Owner
+from profiles.models.models import Owner
 
 class Site(models.Model):
     SITE_STATUS = [

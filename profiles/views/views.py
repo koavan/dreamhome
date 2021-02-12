@@ -3,9 +3,9 @@ from django.http.response import HttpResponse
 from rest_framework import ( generics, mixins)
 from rest_framework import serializers
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
-from .models import Owner, Buyer
-from .serializers import ( OwnerSerializer, UserSerializer, BuyerSerializer, )
-from .permissions import IsNoOwnerCreated, IsNoBuyerCreated
+from profiles.models.models import Owner, Buyer
+from profiles.serializers.serializers import ( OwnerSerializer, UserSerializer, BuyerSerializer, )
+from profiles.permissions.permissions import IsNoOwnerCreated, IsNoBuyerCreated
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ( ObjectDoesNotExist, ValidationError, )
