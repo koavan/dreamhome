@@ -1,8 +1,12 @@
+from profiles.views.whoami import WhoamiAPIView
+from profiles.views.buyer_address import BuyerAddressView
+from profiles.views.buyer_create import BuyerCreateAPIView
+from profiles.views.owner_create import OwnerCreateAPIView
+from profiles.views.owner_list import OwnerListAPIView
+from profiles.views.owner_detail import OwnerDetailAPIView
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from profiles.views.views import ( OwnerListAPIView, OwnerDetailAPIView, OwnerCreateAPIView,
-                     BuyerCreateAPIView, WhoamiAPIView, BuyerAddressView, )
 
 urlpatterns = [
     path('owners/', OwnerListAPIView.as_view(), name='owners-list'),

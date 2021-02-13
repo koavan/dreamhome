@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models.models import Owner, User, Buyer
+from profiles.models.user import User
+from profiles.models.buyer import Buyer
+from profiles.models.owner import Owner
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 class UserAdmin(BaseUserAdmin):

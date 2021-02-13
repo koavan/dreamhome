@@ -160,9 +160,9 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication', ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #     'rest_framework.renderers.JSONRenderer',
-    # ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
 }
 
 AUTH_USER_MODEL = 'profiles.User'
@@ -170,12 +170,12 @@ AUTH_USER_MODEL = 'profiles.User'
 SITE_ID = 1
 
 REST_AUTH_SERIALIZERS = {
-    'LOGIN_SERIALIZER': 'profiles.serializers.serializers.LoginSerializer',
-    'USER_DETAILS_SERIALIZER': 'profiles.serializers.serializers.UserSerializer',
+    'LOGIN_SERIALIZER': 'profiles.serializers.login.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'profiles.serializers.user.UserSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'profiles.serializers.serializers.RegisterSerializer',
+    'REGISTER_SERIALIZER': 'profiles.serializers.register.RegisterSerializer',
 }
 
 AUTHENTICATION_BACKENDS = [

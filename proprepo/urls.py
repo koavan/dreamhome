@@ -6,7 +6,6 @@ from .views import ( SiteListAPIView, SiteCreateAPIView, SiteDetailAPIView,
                      PropertyListAPIView, PropertyCreateAPIView, PropertyDetailAPIView, 
                      FilteredPropertyListAPIView, PropertyImageDetailAPIView, 
                      PropertyImageCreateAPIView, SiteLayoutImageDetailView, )
-from profiles.views.views import ( OwnerListAPIView, OwnerDetailAPIView, )
 
 urlpatterns = [
     # path('owners/<int:owner_pk>/site/', SiteCreateAPIView.as_view(), name='add-site'),

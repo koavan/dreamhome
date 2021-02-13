@@ -1,7 +1,7 @@
 from django.contrib.admin.sites import site
 from rest_framework import serializers
 from .models import Owner, Site, Property, SiteImage, PropertyImage
-from profiles.serializers.serializers import OwnerSerializer
+from profiles.serializers.owner import OwnerSerializer
 
 class SiteImageSerializer(serializers.ModelSerializer):
     site = serializers.PrimaryKeyRelatedField(read_only=True)
