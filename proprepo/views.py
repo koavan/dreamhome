@@ -37,7 +37,6 @@ class SiteDetailAPIView(generics.RetrieveAPIView):
         site_id = self.kwargs.get('pk')
         site = Site.objects.filter(pk=site_id)
         if site.count() > 0:
-            images = SiteImage.objects.filter(site=site_id).filter(is_layout=False)
             site_serializer = self.get_serializer(site[0])
             images = list(map(self.get_siteimage, site_serializer.data.get('images')))
             images.remove(None) if None in images else images
