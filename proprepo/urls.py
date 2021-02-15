@@ -1,11 +1,18 @@
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import ( SiteListAPIView, SiteCreateAPIView, SiteDetailAPIView,
-                     SiteImageCreateAPIView, SiteImageDetailAPIView,
-                     PropertyListAPIView, PropertyCreateAPIView, PropertyDetailAPIView, 
-                     FilteredPropertyListAPIView, PropertyImageDetailAPIView, 
-                     PropertyImageCreateAPIView, SiteLayoutImageDetailView, )
+from proprepo.views.site_list import SiteListAPIView
+from proprepo.views.site_create import SiteCreateAPIView
+from proprepo.views.site_detail import SiteDetailAPIView
+from proprepo.views.siteImage_create import SiteImageCreateAPIView
+from proprepo.views.siteImage_detail import SiteImageDetailAPIView
+from proprepo.views.property_list import PropertyListAPIView
+from proprepo.views.property_create import PropertyCreateAPIView
+from proprepo.views.property_detail import PropertyDetailAPIView
+from proprepo.views.property_list_filtered import FilteredPropertyListAPIView
+from proprepo.views.propertyImage_detail import PropertyImageDetailAPIView
+from proprepo.views.propertyImage_create import PropertyImageCreateAPIView
+from proprepo.views.siteLayoutImage_detail import SiteLayoutImageDetailView
 
 urlpatterns = [
     # path('owners/<int:owner_pk>/site/', SiteCreateAPIView.as_view(), name='add-site'),
