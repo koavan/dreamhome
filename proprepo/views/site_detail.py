@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import status
-from proprepo.models import Site
-from proprepo.serializers import SiteSerializer
+from proprepo.models.site import Site
+# from proprepo.models import Site
+from proprepo.serializers.site import SiteSerializer
 
 class SiteDetailAPIView(generics.RetrieveAPIView):
     queryset = Site.objects.all()

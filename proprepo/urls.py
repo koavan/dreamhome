@@ -1,8 +1,8 @@
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from proprepo.views.site_list import SiteListAPIView
 from proprepo.views.site_create import SiteCreateAPIView
+from proprepo.views.site_list import SiteListAPIView
 from proprepo.views.site_detail import SiteDetailAPIView
 from proprepo.views.siteImage_create import SiteImageCreateAPIView
 from proprepo.views.siteImage_detail import SiteImageDetailAPIView

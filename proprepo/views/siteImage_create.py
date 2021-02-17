@@ -1,7 +1,10 @@
 from rest_framework import generics
-from proprepo.models import Site, SiteImage
-from proprepo.serializers import SiteImageSerializer
-from proprepo.permissions import IsOwnerOfSite
+from proprepo.models.site import Site
+from proprepo.models.site_image import SiteImage
+# from proprepo.models import Site
+# from proprepo.models import SiteImage
+from proprepo.serializers.site_image import SiteImageSerializer
+from proprepo.permissions.owner_of_site import IsOwnerOfSite
 from rest_framework.permissions import IsAuthenticated
 
 # Site Image related views

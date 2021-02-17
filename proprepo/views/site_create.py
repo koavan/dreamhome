@@ -1,7 +1,8 @@
 from rest_framework import generics
 from django.contrib.auth import get_user_model
-from proprepo.models import Site
-from proprepo.serializers import SiteSerializer
+from proprepo.models.site import Site
+# from proprepo.models import Site
+from proprepo.serializers.site import SiteSerializer
 from profiles.permissions.permissions import IsOwner
 from rest_framework.permissions import IsAuthenticated
 

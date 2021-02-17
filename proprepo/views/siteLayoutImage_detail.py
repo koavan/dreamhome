@@ -1,8 +1,10 @@
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import status
-from proprepo.models import Site, SiteImage
-from proprepo.serializers import SiteImageSerializer
+from proprepo.models.site import Site
+from proprepo.models.site_image import SiteImage
+
+from proprepo.serializers.site_image import SiteImageSerializer
 
 class SiteLayoutImageDetailView(generics.RetrieveAPIView):
     serializer_class = SiteImageSerializer
