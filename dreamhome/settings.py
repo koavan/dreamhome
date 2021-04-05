@@ -170,13 +170,12 @@ AUTH_USER_MODEL = 'profiles.User'
 SITE_ID = 1
 
 REST_AUTH_SERIALIZERS = {
-    'LOGIN_SERIALIZER': 'profiles.serializers.LoginSerializer',
-    'USER_DETAILS_SERIALIZER': 'profiles.serializers.UserSerializer',
-    # 'REGISTER_SERIALIZER': 'profiles.serializers.RegisterSerializer',
+    'LOGIN_SERIALIZER': 'profiles.serializers.login.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'profiles.serializers.user.UserSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'profiles.serializers.RegisterSerializer',
+    'REGISTER_SERIALIZER': 'profiles.serializers.register.RegisterSerializer',
 }
 
 AUTHENTICATION_BACKENDS = [
