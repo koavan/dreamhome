@@ -2,8 +2,10 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 import json
-from profiles.models import Owner, Buyer
-from proprepo.models import Site, Property
+from profiles.models.owner import Owner
+from profiles.models.buyer import Buyer
+from proprepo.models.site import Site
+from proprepo.models.property import Property
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
