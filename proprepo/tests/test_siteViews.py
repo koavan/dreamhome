@@ -198,7 +198,6 @@ class SiteListAPIViewTest(APITestCase):
             approved = True,
             approval_body = "DTCP"
         )
-        print("Owner ID : {}".format(self.owner.id))
         self.data = [
             {
                 "id" : self.site1.id,

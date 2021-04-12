@@ -59,7 +59,10 @@ class PropertyCreateAPIViewTest(APITestCase):
         }
         data = {
             "id" : 1,
-            "site_id" : self.site1.name,
+            "site_id" : self.site1.id,
+            "site_name" : self.site1.name,
+            "owner_id" : self.owner1.id,
+            "owner_name" : self.owner1.company_name,
             "images" : [],
             "name" : "Plot no : 1",
             "description" : "East facing plot",
@@ -126,7 +129,10 @@ class PropertyCreateAPIViewTest(APITestCase):
         }
         data1 = {
             "id" : 2,
-            "site_id" : self.site1.name,
+            "site_id" : self.site1.id,
+            "site_name" : self.site1.name,
+            "owner_id" : self.owner1.id,
+            "owner_name" : self.owner1.company_name,
             "images" : [],
             "name" : "Plot no : 1",
             "description" : "East facing plot",
@@ -152,7 +158,10 @@ class PropertyCreateAPIViewTest(APITestCase):
         }
         data2 = {
             "id" : 3,
-            "site_id" : self.site1.name,
+            "site_id" : self.site1.id,
+            "site_name" : self.site1.name,
+            "owner_id" : self.owner1.id,
+            "owner_name" : self.owner1.company_name,
             "images" : [],
             "name" : "Plot no : 2",
             "description" : "West facing plot",
@@ -221,7 +230,10 @@ class PropertyDetailAPIViewTest(APITestCase):
         
         self.data = {
             "id" : 4,
-            "site_id" : self.site1.name,
+            "site_id" : self.site1.id,
+            "site_name" : self.site1.name,
+            "owner_id" : self.owner1.id,
+            "owner_name" : self.owner1.company_name,
             "images" : [],
             "name" : "Plot no : 1",
             "description" : "East facing plot",
@@ -234,7 +246,7 @@ class PropertyDetailAPIViewTest(APITestCase):
             "status" : "AVAILABLE"
         }
         
-    def test_site_detail_view(self):
+    def test_property_detail_view(self):
         response = self.client.get(reverse('property-detail', kwargs={ 'pk' : self.property1.id }))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
@@ -301,7 +313,10 @@ class PropertyListAPIViewTest(APITestCase):
         self.data = [
             {
                 "id" : 5,
-                "site_id" : self.site1.name,
+                "site_id" : self.site1.id,
+                "site_name" : self.site1.name,
+                "owner_id" : self.owner1.id,
+                "owner_name" : self.owner1.company_name,
                 "images" : [],
                 "name" : "Plot no : 1",
                 "description" : "East facing plot",
@@ -315,7 +330,10 @@ class PropertyListAPIViewTest(APITestCase):
             },
             {
                 "id" : 6,
-                "site_id" : self.site1.name,
+                "site_id" : self.site1.id,
+                "site_name" : self.site1.name,
+                "owner_id" : self.owner1.id,
+                "owner_name" : self.owner1.company_name,
                 "images" : [],
                 "name" : "Plot no : 2",
                 "description" : "West facing plot",
