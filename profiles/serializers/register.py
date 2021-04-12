@@ -24,7 +24,8 @@ class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(
         max_length=get_username_max_length(),
         min_length=allauth_settings.USERNAME_MIN_LENGTH,
-        required=allauth_settings.USERNAME_REQUIRED
+        required=allauth_settings.USERNAME_REQUIRED,
+        read_only = True
     )
     phone = PhoneNumberField(required=False, allow_blank=True)
     # phone = serializers.CharField(required=False, allow_blank=True)
@@ -48,6 +49,13 @@ class RegisterSerializer(serializers.Serializer):
         return get_adapter().clean_password(password)
 
     def validate(self, data):
+        if data.get('email',None):
+            data['username'] = data.get('email')
+        elif data.get('phone',None):
+            data['username'] = data.get('phone')
+        else:
+            raise serializers.ValidationError(_("Either phone or email should be supplied"))
+
         if data['password1'] != data['password2']:
             raise serializers.ValidationError(_("The two password fields didn't match."))
         return data

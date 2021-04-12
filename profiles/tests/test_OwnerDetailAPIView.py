@@ -22,7 +22,7 @@ class OwnerDetailAPIViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(json.loads(response.content), {
                 "id":self.owner.id,
-                "user":self.user.name,
+                "user":self.user.id,
                 "company_name":"test-company",
                 "address":"test-address",
                 "district":"test-district",
