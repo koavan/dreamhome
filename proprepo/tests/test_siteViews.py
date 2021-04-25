@@ -2,8 +2,9 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 import json
-from profiles.models import Owner, Buyer
-from proprepo.models import Site
+from profiles.models.owner import Owner
+from profiles.models.buyer import Buyer
+from proprepo.models.site import Site
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
@@ -126,7 +127,8 @@ class SiteDetailAPIViewTest(APITestCase):
             "id" : self.site.id,
             "name" : "test-site",
             "description" : "test description",
-            "owner_id" : self.owner.company_name,
+            "owner_id" : self.owner.id,
+            "owner_name" : self.owner.company_name,
             "located_at" : "test locality",
             "latitude" : 11.1111,
             "longitude" : 12.1212,
@@ -196,13 +198,13 @@ class SiteListAPIViewTest(APITestCase):
             approved = True,
             approval_body = "DTCP"
         )
-
         self.data = [
             {
                 "id" : self.site1.id,
                 "name" : "test-site-1",
                 "description" : "test description one",
-                "owner_id" : self.owner.company_name,
+                "owner_id" : self.owner.id,
+                "owner_name" : self.owner.company_name,
                 "located_at" : "test locality one",
                 "latitude" : 11.1111,
                 "longitude" : 12.1212,
@@ -222,7 +224,8 @@ class SiteListAPIViewTest(APITestCase):
                 "id" : self.site2.id,
                 "name" : "test-site-2",
                 "description" : "test description two",
-                "owner_id" : self.owner.company_name,
+                "owner_id" : self.owner.id,
+                "owner_name" : self.owner.company_name,
                 "located_at" : "test locality two",
                 "latitude" : 11.1111,
                 "longitude" : 12.1212,
@@ -247,4 +250,3 @@ class SiteListAPIViewTest(APITestCase):
                 json.loads(response.content),
                 self.data
             )
-            

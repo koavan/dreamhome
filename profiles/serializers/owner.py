@@ -24,3 +24,4 @@ class OwnerSerializer(serializers.ModelSerializer):
         model = Owner
         exclude = ('created_at', 'updated_at', )
         # fields = '__all__'
+        read_only_fields = ( 'user', )
