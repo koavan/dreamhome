@@ -23,15 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'w!uohg&_mq^wdhfihpzzi!z^9093d&bvank%@-s-*1r7+$t=9n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('ENV') == 'production':
+    DEBUG = False
+else:
+    DEBUG = True
 
-# CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['*']
-
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000"
-]
+# CORS Settings
+CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ALLOWED_SITES').split(',')
 
 # Application definition
 
@@ -101,11 +99,11 @@ WSGI_APPLICATION = 'dreamhome.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dreamhome',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres123',
-        'HOST': 'postgres-db',
-        'PORT': '5432',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
     }
 }
 
@@ -149,11 +147,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL =  '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES' : ('rest_framework.permissions.IsAuthenticated',),
-#     'DEFAULT_AUTHENTICATION_CLASSES' : ('rest_framework_simplejwt.authentication.JWTAuthentication',),
-# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : (
