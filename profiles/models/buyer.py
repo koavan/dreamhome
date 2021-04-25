@@ -10,7 +10,6 @@ class Buyer(models.Model):
 	address = models.TextField(max_length=255)
 	district = models.CharField(max_length=50)
 	state = models.CharField(max_length=50)
-	# contact_number = models.CharField(max_length=10, unique=True, blank=False)
 	avatar = models.ImageField(blank=True)
 	created_at = models.DateField(auto_now_add=True)
 	updated_at = models.DateField(auto_now=True)
