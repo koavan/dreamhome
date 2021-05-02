@@ -33,7 +33,9 @@ class WhoamiAPIView(APIView):
         API endpoint to get details of the current authenticated user. Pass the authentication token in the header. It will get the user, buyer/owner details of the user logged in with the auth token passed in the header.
         """
         token = request.data.get('token', None)
-        
+        # token = request.auth
+        # print(token)
+
         if token:
             who = {}
             user = get_object_or_404(Token, key=token).user
